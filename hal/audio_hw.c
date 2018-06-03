@@ -128,6 +128,17 @@ struct pcm_config pcm_config_hdmi_multi = {
     .avail_min = 0,
 };
 
+struct pcm_config pcm_config_hifi = {
+    .channels = DEFAULT_CHANNEL_COUNT, /* changed when the stream is opened */
+    .rate = DEFAULT_OUTPUT_SAMPLING_RATE, /* changed when the stream is opened */
+    .period_size = DEEP_BUFFER_OUTPUT_PERIOD_SIZE, /* change #define */
+    .period_count = DEEP_BUFFER_OUTPUT_PERIOD_COUNT,
+    .format = PCM_FORMAT_S24_3LE,
+    .start_threshold = 0,
+    .stop_threshold = INT_MAX,
+    .avail_min = 0,
+};
+
 struct pcm_config pcm_config_audio_capture = {
     .channels = 2,
     .period_count = AUDIO_CAPTURE_PERIOD_COUNT,

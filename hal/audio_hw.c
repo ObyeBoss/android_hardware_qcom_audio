@@ -117,6 +117,20 @@ struct pcm_config pcm_config_low_latency = {
     .avail_min = LOW_LATENCY_OUTPUT_PERIOD_SIZE / 4,
 };
 
+static int af_period_multiplier = 4;
+struct pcm_config pcm_config_rt = {
+    .channels = DEFAULT_CHANNEL_COUNT,
+    .rate = DEFAULT_OUTPUT_SAMPLING_RATE,
+    .period_size = ULL_PERIOD_SIZE, //1 ms
+    .period_count = 512, //=> buffer size is 512ms
+    .format = PCM_FORMAT_S16_LE,
+    .start_threshold = ULL_PERIOD_SIZE*8, //8ms
+    .stop_threshold = INT_MAX,
+    .silence_threshold = 0,
+    .silence_size = 0,
+    .avail_min = ULL_PERIOD_SIZE, //1 ms
+};
+
 struct pcm_config pcm_config_hdmi_multi = {
     .channels = HDMI_MULTI_DEFAULT_CHANNEL_COUNT, /* changed when the stream is opened */
     .rate = DEFAULT_OUTPUT_SAMPLING_RATE, /* changed when the stream is opened */
@@ -137,6 +151,19 @@ struct pcm_config pcm_config_hifi = {
     .start_threshold = 0,
     .stop_threshold = INT_MAX,
     .avail_min = 0,
+};
+
+struct pcm_config pcm_config_mmap_playback = {
+    .channels = DEFAULT_CHANNEL_COUNT,
+    .rate = DEFAULT_OUTPUT_SAMPLING_RATE,
+    .period_size = MMAP_PERIOD_SIZE,
+    .period_count = MMAP_PERIOD_COUNT_DEFAULT,
+    .format = PCM_FORMAT_S16_LE,
+    .start_threshold = MMAP_PERIOD_SIZE*8,
+    .stop_threshold = INT32_MAX,
+    .silence_threshold = 0,
+    .silence_size = 0,
+    .avail_min = MMAP_PERIOD_SIZE, //1 ms
 };
 
 struct pcm_config pcm_config_audio_capture = {
@@ -179,8 +206,10 @@ struct pcm_config pcm_config_afe_proxy_record = {
 const char * const use_case_table[AUDIO_USECASE_MAX] = {
     [USECASE_AUDIO_PLAYBACK_DEEP_BUFFER] = "deep-buffer-playback",
     [USECASE_AUDIO_PLAYBACK_LOW_LATENCY] = "low-latency-playback",
+    [USECASE_AUDIO_PLAYBACK_HIFI] = "hifi-playback",        
     [USECASE_AUDIO_PLAYBACK_ULL]         = "audio-ull-playback",
     [USECASE_AUDIO_PLAYBACK_MULTI_CH]    = "multi-channel-playback",
+    [USECASE_AUDIO_PLAYBACK_MMAP] = "mmap-playback",        
     [USECASE_AUDIO_PLAYBACK_OFFLOAD] = "compress-offload-playback",
     [USECASE_AUDIO_PLAYBACK_OFFLOAD2] = "compress-offload-playback2",
 #ifdef MULTIPLE_OFFLOAD_ENABLED

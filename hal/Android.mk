@@ -80,6 +80,10 @@ ifeq ($(strip $(AUDIO_FEATURE_ENABLED_USB_TUNNEL)),true)
     LOCAL_SRC_FILES += audio_extn/usb.c
 endif
 
+ifeq ($(strip $(AUDIO_FEATURE_ENABLED_HIFI_AUDIO)),true)
+    LOCAL_CFLAGS += -DHIFI_AUDIO_ENABLED
+endif
+
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_USB_SIDETONE_VOLUME)),true)
     LOCAL_CFLAGS += -DUSB_SIDETONE_VOLUME
 endif
@@ -145,6 +149,15 @@ endif
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_SPKR_PROTECTION)),true)
     LOCAL_CFLAGS += -DSPKR_PROT_ENABLED
     LOCAL_SRC_FILES += audio_extn/spkr_protection.c
+endif
+
+ifeq ($(strip $(AUDIO_FEATURE_ENABLED_DTS_EAGLE)),true)
+    LOCAL_CFLAGS += -DDTS_EAGLE
+    LOCAL_SRC_FILES += audio_extn/dts_eagle.c
+endif
+
+ifeq ($(strip $(AUDIO_FEATURE_ENABLED_PCM_OFFLOAD_24)),true)
+       LOCAL_CFLAGS += -DPCM_OFFLOAD_ENABLED_24
 endif
 
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_DSM_FEEDBACK)),true)

@@ -149,7 +149,7 @@ struct platform_data {
     void *hw_info;
     char ec_ref_mixer_path[64];
     bool speaker_lr_swap;
-
+    bool hifi_audio;
     int max_vol_index;
 };
 

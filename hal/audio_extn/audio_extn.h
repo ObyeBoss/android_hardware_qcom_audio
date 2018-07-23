@@ -40,6 +40,14 @@
 
 #include <cutils/str_parms.h>
 
+#ifndef HIFI_AUDIO_ENABLED
+#define audio_extn_is_hifi_audio_enabled()               (0)
+#define audio_extn_is_hifi_audio_supported()             (0)
+#else
+bool audio_extn_is_hifi_audio_enabled(void);
+bool audio_extn_is_hifi_audio_supported(void);
+#endif
+
 #ifndef AFE_PROXY_ENABLED
 #define AUDIO_DEVICE_OUT_PROXY 0x40000
 #endif

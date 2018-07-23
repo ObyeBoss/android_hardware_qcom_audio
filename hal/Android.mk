@@ -88,6 +88,10 @@ ifeq ($(strip $(AUDIO_FEATURE_ENABLED_USBAUDIO)),true)
     LOCAL_SRC_FILES += audio_extn/usb.c
 endif
 
+ifeq ($(strip $(AUDIO_FEATURE_ENABLED_HIFI_AUDIO)),true)
+    LOCAL_CFLAGS += -DHIFI_AUDIO_ENABLED
+endif
+
 ifneq ($(strip $(AUDIO_FEATURE_ENABLED_HFP)),false)
     LOCAL_CFLAGS += -DHFP_ENABLED
     LOCAL_SRC_FILES += audio_extn/hfp.c
